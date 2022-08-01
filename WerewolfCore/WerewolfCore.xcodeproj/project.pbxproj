@@ -1,0 +1,485 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C68EBCCB288A11820057AA13 /* WerewolfCore.docc in Sources */ = {isa = PBXBuildFile; fileRef = C68EBCCA288A11820057AA13 /* WerewolfCore.docc */; };
+		C68EBCD1288A11830057AA13 /* WerewolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C68EBCC6288A11820057AA13 /* WerewolfCore.framework */; };
+		C68EBCD6288A11830057AA13 /* WerewolfCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68EBCD5288A11830057AA13 /* WerewolfCoreTests.swift */; };
+		C68EBCD7288A11830057AA13 /* WerewolfCore.h in Headers */ = {isa = PBXBuildFile; fileRef = C68EBCC9288A11820057AA13 /* WerewolfCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C68EBCEA288A119A0057AA13 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68EBCE4288A119A0057AA13 /* Game.swift */; };
+		C68EBCEB288A119A0057AA13 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68EBCE5288A119A0057AA13 /* PlayerManager.swift */; };
+		C68EBCEC288A119A0057AA13 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68EBCE6288A119A0057AA13 /* Player.swift */; };
+		C68EBCED288A119A0057AA13 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68EBCE7288A119A0057AA13 /* GameManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C68EBCD2288A11830057AA13 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C68EBCBD288A11820057AA13 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C68EBCC5288A11820057AA13;
+			remoteInfo = WerewolfCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C68EBCC6288A11820057AA13 /* WerewolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WerewolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C68EBCC9288A11820057AA13 /* WerewolfCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WerewolfCore.h; sourceTree = "<group>"; };
+		C68EBCCA288A11820057AA13 /* WerewolfCore.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = WerewolfCore.docc; sourceTree = "<group>"; };
+		C68EBCD0288A11830057AA13 /* WerewolfCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WerewolfCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C68EBCD5288A11830057AA13 /* WerewolfCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerewolfCoreTests.swift; sourceTree = "<group>"; };
+		C68EBCE4288A119A0057AA13 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		C68EBCE5288A119A0057AA13 /* PlayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
+		C68EBCE6288A119A0057AA13 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		C68EBCE7288A119A0057AA13 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C68EBCC3288A11820057AA13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C68EBCCD288A11830057AA13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C68EBCD1288A11830057AA13 /* WerewolfCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C68EBCBC288A11820057AA13 = {
+			isa = PBXGroup;
+			children = (
+				C68EBCC8288A11820057AA13 /* WerewolfCore */,
+				C68EBCD4288A11830057AA13 /* WerewolfCoreTests */,
+				C68EBCC7288A11820057AA13 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C68EBCC7288A11820057AA13 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C68EBCC6288A11820057AA13 /* WerewolfCore.framework */,
+				C68EBCD0288A11830057AA13 /* WerewolfCoreTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C68EBCC8288A11820057AA13 /* WerewolfCore */ = {
+			isa = PBXGroup;
+			children = (
+				C68EBCE3288A119A0057AA13 /* Domain */,
+				C68EBCC9288A11820057AA13 /* WerewolfCore.h */,
+				C68EBCCA288A11820057AA13 /* WerewolfCore.docc */,
+			);
+			path = WerewolfCore;
+			sourceTree = "<group>";
+		};
+		C68EBCD4288A11830057AA13 /* WerewolfCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				C68EBCD5288A11830057AA13 /* WerewolfCoreTests.swift */,
+			);
+			path = WerewolfCoreTests;
+			sourceTree = "<group>";
+		};
+		C68EBCE3288A119A0057AA13 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				C68EBCE4288A119A0057AA13 /* Game.swift */,
+				C68EBCE5288A119A0057AA13 /* PlayerManager.swift */,
+				C68EBCE6288A119A0057AA13 /* Player.swift */,
+				C68EBCE7288A119A0057AA13 /* GameManager.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C68EBCC1288A11820057AA13 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C68EBCD7288A11830057AA13 /* WerewolfCore.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C68EBCC5288A11820057AA13 /* WerewolfCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C68EBCDA288A11830057AA13 /* Build configuration list for PBXNativeTarget "WerewolfCore" */;
+			buildPhases = (
+				C68EBCC1288A11820057AA13 /* Headers */,
+				C68EBCC2288A11820057AA13 /* Sources */,
+				C68EBCC3288A11820057AA13 /* Frameworks */,
+				C68EBCC4288A11820057AA13 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WerewolfCore;
+			productName = WerewolfCore;
+			productReference = C68EBCC6288A11820057AA13 /* WerewolfCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C68EBCCF288A11830057AA13 /* WerewolfCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C68EBCDD288A11830057AA13 /* Build configuration list for PBXNativeTarget "WerewolfCoreTests" */;
+			buildPhases = (
+				C68EBCCC288A11830057AA13 /* Sources */,
+				C68EBCCD288A11830057AA13 /* Frameworks */,
+				C68EBCCE288A11830057AA13 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C68EBCD3288A11830057AA13 /* PBXTargetDependency */,
+			);
+			name = WerewolfCoreTests;
+			productName = WerewolfCoreTests;
+			productReference = C68EBCD0288A11830057AA13 /* WerewolfCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C68EBCBD288A11820057AA13 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					C68EBCC5288A11820057AA13 = {
+						CreatedOnToolsVersion = 13.2;
+					};
+					C68EBCCF288A11830057AA13 = {
+						CreatedOnToolsVersion = 13.2;
+					};
+				};
+			};
+			buildConfigurationList = C68EBCC0288A11820057AA13 /* Build configuration list for PBXProject "WerewolfCore" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C68EBCBC288A11820057AA13;
+			productRefGroup = C68EBCC7288A11820057AA13 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C68EBCC5288A11820057AA13 /* WerewolfCore */,
+				C68EBCCF288A11830057AA13 /* WerewolfCoreTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C68EBCC4288A11820057AA13 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C68EBCCE288A11830057AA13 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C68EBCC2288A11820057AA13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C68EBCEB288A119A0057AA13 /* PlayerManager.swift in Sources */,
+				C68EBCED288A119A0057AA13 /* GameManager.swift in Sources */,
+				C68EBCCB288A11820057AA13 /* WerewolfCore.docc in Sources */,
+				C68EBCEC288A119A0057AA13 /* Player.swift in Sources */,
+				C68EBCEA288A119A0057AA13 /* Game.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C68EBCCC288A11830057AA13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C68EBCD6288A11830057AA13 /* WerewolfCoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C68EBCD3288A11830057AA13 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C68EBCC5288A11820057AA13 /* WerewolfCore */;
+			targetProxy = C68EBCD2288A11830057AA13 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C68EBCD8288A11830057AA13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C68EBCD9288A11830057AA13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C68EBCDB288A11830057AA13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.droidtapgames.WerewolfCore;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C68EBCDC288A11830057AA13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.droidtapgames.WerewolfCore;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C68EBCDE288A11830057AA13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.droidtapgames.WerewolfCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C68EBCDF288A11830057AA13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.droidtapgames.WerewolfCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C68EBCC0288A11820057AA13 /* Build configuration list for PBXProject "WerewolfCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C68EBCD8288A11830057AA13 /* Debug */,
+				C68EBCD9288A11830057AA13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C68EBCDA288A11830057AA13 /* Build configuration list for PBXNativeTarget "WerewolfCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C68EBCDB288A11830057AA13 /* Debug */,
+				C68EBCDC288A11830057AA13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C68EBCDD288A11830057AA13 /* Build configuration list for PBXNativeTarget "WerewolfCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C68EBCDE288A11830057AA13 /* Debug */,
+				C68EBCDF288A11830057AA13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C68EBCBD288A11820057AA13 /* Project object */;
+}
