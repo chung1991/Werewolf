@@ -30,12 +30,12 @@ on:
         description: 'The name of the first branch to compare.'
         required: true
         type: string
-        default: 'develop'
+        default: 'master'
       branch_b:
         description: 'The name of the second branch to compare.'
         required: true
         type: string
-        default: 'develop'
+        default: 'master'
 
 jobs:
   
@@ -62,7 +62,6 @@ jobs:
       - name: Run tests with coverage for branch 1 - "${{ inputs.branch_a }}"
         id: run_tests_a
         run: |
-          cd Werewolf-master
           REPORTS_PATH="$(pwd)/test-reports"
           mkdir -p "$REPORTS_PATH"
           
@@ -110,7 +109,6 @@ jobs:
       - name: Run tests with coverage for branch 2 - "${{ inputs.branch_b }}"
         id: run_tests_b
         run: |
-          cd Werewolf-master
           REPORTS_PATH="$(pwd)/test-reports"
           mkdir -p "$REPORTS_PATH"
           
