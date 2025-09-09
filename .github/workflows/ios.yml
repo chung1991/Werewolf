@@ -68,7 +68,7 @@ jobs:
           xcodebuild test \
             -workspace WerewolfWorkspace.xcworkspace \
             -scheme Werewolf \
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            -destination 'platform=iOS Simulator,name=Any iOS Simulator Device' \
             -resultBundlePath "$REPORTS_PATH/TestResults_${{ inputs.branch_a }}.xcresult" \
             -enableCodeCoverage YES \
             -quiet
@@ -115,7 +115,7 @@ jobs:
           xcodebuild test \
             -workspace WerewolfWorkspace.xcworkspace \
             -scheme Werewolf \
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            -destination 'platform=iOS Simulator,name=Any iOS Simulator Device' \
             -resultBundlePath "$REPORTS_PATH/TestResults_${{ inputs.branch_b }}.xcresult" \
             -enableCodeCoverage YES \
             -quiet
