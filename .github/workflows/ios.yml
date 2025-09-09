@@ -1,150 +1,159 @@
-name: iOS starter workflow
+name: 'Compare Code Coverage'
 
+# This makes the workflow reusable. It can be triggered from other workflows.
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  workflow_call:
+    inputs:
+      # The first branch to compare. Required input.
+      branch_a:
+        description: 'The name of the first branch to compare.'
+        required: true
+        type: string
+      # The second branch to compare. Required input.
+      branch_b:
+        description: 'The name of the second branch to compare.'
+        required: true
+        type: string
+    outputs:
+      # The code coverage percentage for branch A.
+      coverage_branch_a:
+        description: 'The code coverage percentage for branch A.'
+        value: ${{ jobs.compare_coverage.outputs.coverage_a }}
+      # The code coverage percentage for branch B.
+      coverage_branch_b:
+        description: 'The code coverage percentage for branch B.'
+        value: ${{ jobs.compare_coverage.outputs.coverage_b }}
+
   workflow_dispatch:
     inputs:
-      base_branch:
-        description: 'Base branch for code coverage comparison'
+      branch_a:
+        description: 'The name of the first branch to compare.'
         required: true
-        default: 'master'
         type: string
-      compare_branch:
-        description: 'Compare branch for code coverage comparison'
-        required: true
         default: 'develop'
+      branch_b:
+        description: 'The name of the second branch to compare.'
+        required: true
         type: string
+        default: 'develop'
 
 jobs:
-  build:
-    name: Build and Test default scheme using any available iPhone simulator
+  
+  compare_coverage:
     runs-on: macos-latest
+    
+    env:
+      applicationName: Werewolf
+
+    # Define job outputs which will be passed up to the workflow outputs.
+    outputs:
+      coverage_a: ${{ steps.get_coverage_a.outputs.coverage_a }}
+      coverage_b: ${{ steps.get_coverage_b.outputs.coverage_b }}
+
+    timeout-minutes: 45
 
     steps:
-      - name: Checkout
+ 
+      - name: Checkout branch 1 - "${{ inputs.branch_a }}"
         uses: actions/checkout@v4
-      - name: Set Default Scheme
+        with:
+          ref: ${{ inputs.branch_a }}
+          
+      - name: Run tests with coverage for branch 1 - "${{ inputs.branch_a }}"
+        id: run_tests_a
         run: |
-          scheme_list=$(xcodebuild -list -json | tr -d "\n")
-          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
-          echo $default | cat >default
-          echo Using default scheme: $default
-      - name: Build
-        env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
+          cd Werewolf-master
+          REPORTS_PATH="$(pwd)/test-reports"
+          mkdir -p "$REPORTS_PATH"
+          
+          xcodebuild test \
+            -workspace WerewolfWorkspace.xcworkspace \
+            -scheme Werewolf \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            -resultBundlePath "$REPORTS_PATH/TestResults_${{ inputs.branch_a }}.xcresult" \
+            -enableCodeCoverage YES \
+            -quiet
+          
+          echo "REPORTS_PATH=$REPORTS_PATH" >> $GITHUB_OUTPUT
+      - name: Compute code coverage for branch 1 - "${{ inputs.branch_a }}"
+        id: get_coverage_a
         run: |
-          # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
-          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
-          if [ $scheme = default ]; then scheme=$(cat default); fi
-          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
-          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-          xcodebuild build-for-testing -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
-      - name: Test
-        env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
-        run: |
-          # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
-          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
-          if [ $scheme = default ]; then scheme=$(cat default); fi
-          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
-          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-          xcodebuild test-without-building -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device" -enableCodeCoverage YES -resultBundlePath "current_branch_test_results.xcresult"
-      
-      - name: Generate Code Coverage for Current Branch
-        env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
-        run: |
-          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
-          if [ $scheme = default ]; then scheme=$(cat default); fi
-          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
-          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-          
-          # Build and test with code coverage for current branch
-          xcodebuild test -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device" -enableCodeCoverage YES -resultBundlePath "current_branch_coverage.xcresult"
-          
-          # Extract coverage data to JSON
-          xcrun xccov view --report --json current_branch_coverage.xcresult > current_coverage.json
-          
-      - name: Checkout Base Branch and Generate Coverage
-        if: ${{ github.event.inputs.base_branch != '' && github.event.inputs.compare_branch != '' }}
-        env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
-        run: |
-          # Stash current changes if any
-          git stash push -m "temp stash for coverage comparison"
-          
-          # Checkout base branch
-          git checkout ${{ github.event.inputs.base_branch }}
-          
-          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
-          if [ $scheme = default ]; then scheme=$(cat default); fi
-          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
-          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-          
-          # Build and test with code coverage for base branch
-          xcodebuild test -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device" -enableCodeCoverage YES -resultBundlePath "base_branch_coverage.xcresult"
-          
-          # Extract coverage data to JSON
-          xcrun xccov view --report --json base_branch_coverage.xcresult > base_coverage.json
-          
-          # Return to compare branch
-          git checkout ${{ github.event.inputs.compare_branch }}
-          
-          # Restore stashed changes if any
-          git stash pop || true
-          
-      - name: Compare Code Coverage
-        if: ${{ github.event.inputs.base_branch != '' && github.event.inputs.compare_branch != '' }}
-        run: |
-          # Install jq for JSON processing if not available
-          if ! command -v jq &> /dev/null; then
-            brew install jq
-          fi
-          
-          # Extract coverage percentages
-          current_coverage=$(jq -r '.lineCoverage' current_coverage.json)
-          base_coverage=$(jq -r '.lineCoverage' base_coverage.json)
-          
-          # Calculate difference
-          coverage_diff=$(echo "$current_coverage - $base_coverage" | bc -l)
-          
-          echo "## Code Coverage Comparison" >> $GITHUB_STEP_SUMMARY
-          echo "| Branch | Coverage | Diff |" >> $GITHUB_STEP_SUMMARY
-          echo "|--------|----------|------|" >> $GITHUB_STEP_SUMMARY
-          echo "| ${{ github.event.inputs.base_branch }} (base) | ${base_coverage}% | - |" >> $GITHUB_STEP_SUMMARY
-          echo "| ${{ github.event.inputs.compare_branch }} (current) | ${current_coverage}% | ${coverage_diff}% |" >> $GITHUB_STEP_SUMMARY
-          
-          # Check if coverage decreased
-          if (( $(echo "$coverage_diff < 0" | bc -l) )); then
-            echo "⚠️ **Warning: Code coverage decreased by ${coverage_diff#-}%**" >> $GITHUB_STEP_SUMMARY
-            echo "::warning::Code coverage decreased from ${base_coverage}% to ${current_coverage}% (${coverage_diff}%)"
-          elif (( $(echo "$coverage_diff > 0" | bc -l) )); then
-            echo "✅ **Code coverage improved by ${coverage_diff}%**" >> $GITHUB_STEP_SUMMARY
-            echo "::notice::Code coverage improved from ${base_coverage}% to ${current_coverage}% (+${coverage_diff}%)"
-          else
-            echo "ℹ️ **Code coverage remained the same at ${current_coverage}%**" >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          # Store coverage results as artifacts
-          echo "Current branch coverage: ${current_coverage}%" > coverage_summary.txt
-          echo "Base branch coverage: ${base_coverage}%" >> coverage_summary.txt
-          echo "Coverage difference: ${coverage_diff}%" >> coverage_summary.txt
-          
-      - name: Upload Coverage Results
+          RESULTS_PATH="${{ steps.run_tests_a.outputs.REPORTS_PATH }}"
+          echo "RESULTS_PATH=$RESULTS_PATH" >> $GITHUB_OUTPUT
+          RESULT_BUNDLE=$(find "$RESULTS_PATH" -name "*.xcresult" | head -n 1)
+          echo "RESULT_BUNDLE=$RESULT_BUNDLE" >> $GITHUB_OUTPUT
+          echo "Using result bundle: $RESULT_BUNDLE"
+          COVERAGE_PERCENTAGE=$(xcrun xccov view --report "$RESULT_BUNDLE" | grep '${{ env.applicationName }}' | awk '{print $2}')
+          echo "Total coverage: $COVERAGE_PERCENTAGE"
+          echo "coverage_a=$COVERAGE_PERCENTAGE" >> $GITHUB_OUTPUT
+          echo "============================="
+          echo "Contents of current directory"
+          ls -al
+          echo "============================="
+          echo "============================="
+          echo "Contents of ${{ steps.run_tests_a.outputs.REPORTS_PATH }} directory"
+          ls -al "${{ steps.run_tests_a.outputs.REPORTS_PATH }}"
+          echo "============================="          
+                
+      - name: Upload Results Bundle for branch 1 - "${{ inputs.branch_a }}"
+        id: xcresult_a
         uses: actions/upload-artifact@v4
         with:
-          name: code-coverage-results
-          path: |
-            current_branch_coverage.xcresult
-            base_branch_coverage.xcresult
-            current_coverage.json
-            base_coverage.json
-            coverage_summary.txt
-          retention-days: 30
+          name: XCResult Branch 1
+          path: ${{ steps.get_coverage_a.outputs.RESULT_BUNDLE }}
+
+      - name: Checkout branch 2 - "${{ inputs.branch_b }}"
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch_b }}
+
+      - name: Run tests with coverage for branch 2 - "${{ inputs.branch_b }}"
+        id: run_tests_b
+        run: |
+          cd Werewolf-master
+          REPORTS_PATH="$(pwd)/test-reports"
+          mkdir -p "$REPORTS_PATH"
+          
+          xcodebuild test \
+            -workspace WerewolfWorkspace.xcworkspace \
+            -scheme Werewolf \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            -resultBundlePath "$REPORTS_PATH/TestResults_${{ inputs.branch_b }}.xcresult" \
+            -enableCodeCoverage YES \
+            -quiet
+          
+          echo "REPORTS_PATH=$REPORTS_PATH" >> $GITHUB_OUTPUT
+
+      - name: Compute code coverage for branch 2 - "${{ inputs.branch_b }}"
+        id: get_coverage_b
+        run: |
+          RESULTS_PATH="${{ steps.run_tests_b.outputs.REPORTS_PATH }}"
+          echo "RESULTS_PATH=$RESULTS_PATH" >> $GITHUB_OUTPUT
+          RESULT_BUNDLE=$(find "$RESULTS_PATH" -name "*.xcresult" | head -n 1)
+          echo "RESULT_BUNDLE=$RESULT_BUNDLE" >> $GITHUB_OUTPUT
+          echo "Using result bundle: $RESULT_BUNDLE"
+          COVERAGE_PERCENTAGE=$(xcrun xccov view --report "$RESULT_BUNDLE" | grep '${{ env.applicationName }}' | awk '{print $2}')
+          echo "Total coverage: $COVERAGE_PERCENTAGE"
+          echo "coverage_b=$COVERAGE_PERCENTAGE" >> $GITHUB_OUTPUT
+      - name: Upload Results Bundle for branch 2 - "${{ inputs.branch_b }}"
+        id: xcresult_b
+        uses: actions/upload-artifact@v4
+        with:
+          name: XCResult Branch 2
+          path: ${{ steps.get_coverage_b.outputs.RESULT_BUNDLE }}
+
+      - name: Display Coverage Comparison
+        run: |
+          echo "----------------------------------------------------"
+          echo "Code Coverage Comparison:"
+          echo "Branch ${{ inputs.branch_a }}: ${{ steps.get_coverage_a.outputs.coverage_a }}%"
+          echo "Branch ${{ inputs.branch_b }}: ${{ steps.get_coverage_b.outputs.coverage_b }}%"
+          echo "----------------------------------------------------"
+      - name: Write coverage summary to workflow run summary
+        run: |
+          echo "## Code Coverage Comparison" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | Coverage |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|----------|" >> $GITHUB_STEP_SUMMARY
+          echo "| ${{ inputs.branch_a }} | ${{ steps.get_coverage_a.outputs.coverage_a }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ${{ inputs.branch_b }} | ${{ steps.get_coverage_b.outputs.coverage_b }} |" >> $GITHUB_STEP_SUMMARY
