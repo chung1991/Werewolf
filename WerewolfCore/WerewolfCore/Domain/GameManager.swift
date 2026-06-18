@@ -53,7 +53,8 @@ public class GameManager: GameManagerProtocol {
         let status = player.status
         let werewolvesKill = (status & ActionType.werevovesKill.rawValue) == ActionType.werevovesKill.rawValue
         let witchKill = (status & ActionType.witchKill.rawValue) == ActionType.witchKill.rawValue
-        let isKilled = werewolvesKill || witchKill
+        let hunterKill = (status & ActionType.hunterKill.rawValue) == ActionType.hunterKill.rawValue
+        let isKilled = werewolvesKill || witchKill || hunterKill
 
         let witchSave = (status & ActionType.witchSave.rawValue) == ActionType.witchSave.rawValue
         let bodyguardSave = (status & ActionType.bodyguardSave.rawValue) == ActionType.bodyguardSave.rawValue
