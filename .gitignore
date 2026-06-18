@@ -3,3 +3,6 @@ Werewolf.xcodeproj/xcuserdata
 WerewolfCore/WerewolfCore.xcodeproj/project.xcworkspace/xcuserdata
 WerewolfCore/WerewolfCore.xcodeproj/xcuserdata
 WerewolfWorkspace.xcworkspace/xcuserdata
+
+.build/
+.swiftpm/xcode/package.xcworkspace/xcuserdata

@@ -5,7 +5,7 @@
 //  Created by Hanh Nguyen on 7/17/22.
 //
 
-import UIKit
+import Foundation
 
 public protocol GameManagerProtocol {
     func setPlayers(_ players: [Player])
